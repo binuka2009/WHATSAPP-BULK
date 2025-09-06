@@ -1,0 +1,6 @@
+{
+  "appId": "com.example.whatsappbot",
+  "appName": "WhatsApp Bot",
+  "webDir": "www",
+  "bundledWebRuntime": false
+}
