@@ -1,0 +1,15 @@
+{
+  "name": "whatsapp-auto-sender",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "cp -r src/* www/"
+  },
+  "dependencies": {
+    "@capacitor/core": "latest",
+    "@whiskeysockets/baileys": "latest",
+    "papaparse": "latest"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "latest"
+  }
+}
