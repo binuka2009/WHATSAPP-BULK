@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>WhatsApp Auto Sender</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>WhatsApp Auto Sender (Session ID)</h2>
+
+  <label>Paste / Upload session.json:</label>
+  <input type="file" id="sessionFile" />
+
+  <label>Upload CSV/VCF contacts:</label>
+  <input type="file" id="fileInput" />
+
+  <textarea id="message" placeholder="Enter message here"></textarea>
+  <button id="startBtn">Start Sending</button>
+
+  <div id="log"></div>
+
+  <script type="module">
+    import { startBot } from './bot.js'
+    import fs from 'fs'
+
+    const sessionFileInput = document.getElementById('sessionFile')
+    const contactsFileInput = document.getElementById('fileInput')
+    const startBtn = document.getElementById('startBtn')
+    const messageEl = document.getElementById('message')
+    const logEl = document.getElementById('log')
+
+    startBtn.addEventListener('click', async () => {
+        if(sessionFileInput.files[0]) {
+            fs.copyFileSync(sessionFileInput.files[0].path, './session.json')
+        }
+
+        const csvFile = contactsFileInput.files[0]
+        if(!csvFile) { alert("Select contacts file"); return }
+
+        const csvText = await csvFile.text()
+        const msg = messageEl.value
+        if(!msg) { alert("Enter a message"); return }
+
+        logEl.innerHTML += "<div>Starting bot...</div>"
+        await startBot(csvText, msg)
+        logEl.innerHTML += "<div>✅ All messages sent!</div>"
+    })
+  </script>
+</body>
+</html>
